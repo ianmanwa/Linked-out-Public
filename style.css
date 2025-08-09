@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header h1{
+    font-size: 3rem;
+}
+
+.navlist{
+    justify-content: space-between;
+}
+
+.navlist a{
+    padding-right: 3rem;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.navlist button{
+padding: 1rem;
+margin-right: 1rem;
+font-weight: bold;
+font-size: 1.3rem;
+border-radius: 1rem;
+
+}
+
+p{
+    padding: 5rem;
+    font-size: 40px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
