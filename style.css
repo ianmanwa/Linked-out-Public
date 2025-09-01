@@ -47,12 +47,24 @@ p {
     align-items: center;
 }
 
-.form-class {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.form-div{
+    display:flex;
     justify-content: center;
     align-items: center;
+}
+
+.form-class {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 50px;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 10px 10px ;
+    width: 300px;
+    font-family: Arial, Helvetica, sans-serif;
+    
 }
 
 .form-class button {
@@ -61,4 +73,7 @@ p {
     font-weight: bold;
     font-size: 1rem;
     border-radius: 0.8rem;
+}
+.jobs-list{
+    
 }

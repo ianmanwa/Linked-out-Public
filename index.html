@@ -20,7 +20,7 @@
             <div class="navlist" >
                 <a href="#"> Home </a>
                 <a href="#"> Job posts </a>
-                <button> Post job </button>
+                <button id="post-button"> Post job </button>
             </div>
 
         </div>
@@ -30,16 +30,21 @@
 
 <p> No jobs Posted yet .....</p>
 
-
+<div class="form-div">
 <form id="job-form" class="form-class">
-<input type="text" placeholder="Job Title">
-<input type="url" placeholder="Job url">
-<textarea placeholder="Leave a comment" ></textarea>
+<input type="text" placeholder="Job Title" id="job-title" required>
+<input type="url" placeholder="Job url" id="job-url" required>
+<textarea placeholder="Leave a rating for this job application" id="job-rating" required></textarea>
 <button type="submit" > Post job </button>
 </form>
+</div>
+
+
+<!-- Job List. Jobs Displayed here -->
+<p id="jobs-list"></p> 
 
 
                 
-    <script src="script.js" ></script>
+<script src="script.js" ></script>
 </body>
 </html>
