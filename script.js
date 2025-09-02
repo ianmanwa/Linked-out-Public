@@ -6,7 +6,7 @@ document.getElementById("job-form").style.display="flex";
 })
 
 //Catch job submission and save to main Array
-document.getElementById("job-form").addEventListener("submit", function (e) {
+document.getElementById("job-form").addEventListener("submit", function(e) {
 
     e.preventDefault()
 
@@ -15,9 +15,10 @@ document.getElementById("job-form").addEventListener("submit", function (e) {
     const rating = document.getElementById("job-rating").value
 
     const newJob = { title, url, rating, comments:[] }
-    jobs.unshift(newJob)
+    jobs.push(newJob)
 
     renderJobs()
+    e.target.reset()
 })
 
 function renderJobs(){
@@ -25,13 +26,15 @@ function renderJobs(){
     jobList.innerHTML="";
 
     jobs.forEach((job,index) =>{
-        jobList.innerHTML=`
+        jobList.innerHTML+=`
+        <div class="list-container">
         <div class="jobs-list">
-        <h3> ${job.title} </h3>
-        <p> ${job.rating} </p>
-        <a href="${job.url}" target=_blank> View Job</a>
+        <h3> Job Title: ${job.title} </h3>
+        <p> Rating: ${job.rating} </p>
+        <a href="${job.url}" target=_blank> Click to View Job</a>
 
         <div data-comment = "openComm" data-index="${index}"> Comments </div>
+        </div>
         </div>
         `
     })
@@ -40,5 +43,5 @@ function renderJobs(){
 }
 
 function renderComments(){
-    
+
 }
