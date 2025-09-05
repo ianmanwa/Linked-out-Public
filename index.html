@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linked out</title>
-    <link  rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
@@ -28,21 +28,33 @@
     </header>
     <!-- NavBar -->
 
-<p class="no-jobs"> No jobs Posted yet .....</p>
 
-<div class="form-div">
+<div class="form-div" id="form-div">
 <form id="job-form" class="form-class">
 <input type="text" placeholder="Job Title" id="job-title" required>
+<input type="text" placeholder="Company" id="job-company" required>
 <input type="url" placeholder="Job url" id="job-url" required>
-<textarea placeholder="Leave a rating for this job application" id="job-rating" required></textarea>
+<select id="job-tag" required>
+    <option selected > Tag this job </option>
+    <option value="good" > Good </option>
+    <option value="ghost" > Ghost Job </option>
+    <option value="scam" > Scam </option>
+</select>
+<textarea placeholder="Your thoughts about this job posting" id="job-rating" required></textarea>
 <button type="submit" > Post job </button>
+
+
 </form>
+<span id="close-form" class="close-form" > ❌ </span>
 </div>
 
 
-<!-- Job List. Jobs Displayed here -->
-<p id="jobs-list"></p> 
 
+<!-- Job List. Jobs Displayed here -->
+<p  id="jobs-list"></p> 
+
+<!-- Comments List. Comments Displayed here -->
+<div id="comments-list" ></div>
 
                 
 <script src="script.js" ></script>

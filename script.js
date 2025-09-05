@@ -1,47 +1,102 @@
 const jobs = [];
 
-//Post job button listener
-document.getElementById("post-button").addEventListener("click", function(e){
-document.getElementById("job-form").style.display="flex";
-})
-
-//Catch job submission and save to main Array
-document.getElementById("job-form").addEventListener("submit", function(e) {
-
+// Listen to Jobs form and add new job to array
+document.getElementById("job-form").addEventListener("submit", function(e){
     e.preventDefault()
 
     const title = document.getElementById("job-title").value
+    const company = document.getElementById("job-company").value
     const url = document.getElementById("job-url").value
+    const tag = document.getElementById("job-tag").value
     const rating = document.getElementById("job-rating").value
 
-    const newJob = { title, url, rating, comments:[] }
+    const newJob = {title, company, url, tag, rating, comments:[]}
     jobs.push(newJob)
+    
+    renderJobs();
+    e.target.reset();
 
-    renderJobs()
-    e.target.reset()
 })
 
+//open job form
+document.getElementById("post-button").addEventListener("click",function(e){
+    document.getElementById("form-div").style.display = "flex"
+})
+
+
+//Close job form
+document.getElementById("close-form").addEventListener("click",function(e){
+    document.getElementById("form-div").style.display = "none"
+})
+
+//Renders jobs to the screen
 function renderJobs(){
-    const jobList = document.getElementById("jobs-list")
-    jobList.innerHTML="";
+    const jobList = document.getElementById("jobs-list");
+    jobList.innerHTML = "";
 
-    jobs.forEach((job,index) =>{
-        jobList.innerHTML+=`
-        <div class="list-container">
-        <div class="jobs-list">
-        <h3> Job Title: ${job.title} </h3>
-        <p> Rating: ${job.rating} </p>
-        <a href="${job.url}" target=_blank> Click to View Job</a>
+    jobs.forEach((job,index) => {
+        jobList.innerHTML +=`
+        
+        <div class="jobs-container">
+        <div class="jobs-div">
+        <h2>Job Title: ${job.title}</h2>
+        <p>Company: ${job.company}</p>
+        <a href="${job.url}" target="_blank">  </a>
+        <p>Tag: ${job.tag}</h2>
+        <p>Comment: ${job.rating}</p>
 
-        <div data-comment = "openComm" data-index="${index}"> Comments </div>
+        <h5 data-comment="commentButton" data-index ="${index}"> Comments </h5>
         </div>
         </div>
         `
     })
-
-    document.getElementById("job-form").style.display="none";
 }
 
-function renderComments(){
+function renderComments(index){
+    const commentList = document.getElementById("comments-list");
 
+    commentList.innerHTML = `
+
+    <div class="comm-div">
+    ${jobs[index].comments.map(c => `<p> ${c} </p>`).join("")}
+
+    <form class="comment-form" data-index="${index}">
+    <input type="text" placeholder="comment..." required>
+    <button type="submit"> Comment <button>
+    </form>
+
+    <span data-close="closeComments" > ❌ </span>
+    </div>
+    `
 }
+
+// When comments is clicked 
+document.addEventListener("click", function(e){
+    if(e.target.dataset.comment === "commentButton"){
+        const index = e.target.dataset.index
+
+         document.getElementById("comments-list").style.display="block"
+         renderComments(index)
+         
+    }
+})
+
+//When comment form is submitted
+document.addEventListener("submit", function(e){
+    if(e.target.classList.contains("comment-form")){
+        e.preventDefault()
+        const index = e.target.getAttribute("data-index")
+        const comment = e.target.querySelector("input").value
+
+        jobs[index].comments.push(comment);
+        renderComments(index)
+    }
+})
+
+// Close comment form
+document.addEventListener("click", function(e){
+    if(e.target.dataset.close === "closeComments"){
+        document.getElementById("comments-list").style.display="none"
+    }
+})
+
