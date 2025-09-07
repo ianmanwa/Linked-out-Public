@@ -16,6 +16,8 @@ document.getElementById("job-form").addEventListener("submit", function(e){
     renderJobs();
     e.target.reset();
 
+    document.getElementById("form-div").style.display = "none"
+
 })
 
 //open job form
@@ -37,7 +39,7 @@ function renderJobs(){
     jobs.forEach((job,index) => {
         jobList.innerHTML +=`
         
-        <div class="jobs-container">
+        
         <div class="jobs-div">
         <h2>Job Title: ${job.title}</h2>
         <p>Company: ${job.company}</p>
@@ -47,7 +49,7 @@ function renderJobs(){
 
         <h5 data-comment="commentButton" data-index ="${index}"> Comments </h5>
         </div>
-        </div>
+        
         `
     })
 }
