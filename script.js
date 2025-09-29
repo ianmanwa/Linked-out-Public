@@ -1,4 +1,14 @@
-const jobs = [];
+let jobs = [];
+
+async function fetchJobs() {
+    const res = await fetch("http://localhost:5000/jobs");
+    const data = await res.json()
+    jobs = data;
+
+    renderJobs()
+}
+
+fetchJobs()
 
 // Listen to Jobs form and add new job to array
 document.getElementById("job-form").addEventListener("submit", function(e){
@@ -11,12 +21,23 @@ document.getElementById("job-form").addEventListener("submit", function(e){
     const rating = document.getElementById("job-rating").value
 
     const newJob = {title, company, url, tag, rating, comments:[]}
-    jobs.push(newJob)
+    
     
     renderJobs();
     e.target.reset();
 
     document.getElementById("form-div").style.display = "none"
+
+    //Send new Job to backend
+    async function sendJob() {
+        await fetch("http://localhost:5000/jobs", {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(newJob)
+        })
+    }
+
+    sendJob()
 
 })
 
