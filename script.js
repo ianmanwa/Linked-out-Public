@@ -68,14 +68,14 @@ function renderJobs(){
         <p>Tag: ${job.tag}</h2>
         <p>Comment: ${job.rating}</p>
 
-        <h5 data-comment="commentButton" data-index ="${index}"> Comments </h5>
+        <h5 data-comment="commentButton" data-index ="${index}" data-id="${job._id}"> Comments </h5>
         </div>
         
         `
     })
 }
 
-function renderComments(index){
+function renderComments(index,id){
     const commentList = document.getElementById("comments-list");
 
     commentList.innerHTML = `
@@ -83,7 +83,7 @@ function renderComments(index){
     <div class="comm-div">
     ${jobs[index].comments.map(c => `<p class="comm-p"> ${c} </p>`).join("")}
 
-    <form class="comment-form" data-index="${index}">
+    <form class="comment-form" data-index="${index}" data-id="${id}">
     <input type="text" placeholder="comment..." required>
     <button type="submit"> Comment <button>
     </form>
@@ -91,15 +91,18 @@ function renderComments(index){
     <span data-close="closeComments" > ❌ </span>
     </div>
     `
+
+
 }
 
 // When comments is clicked 
 document.addEventListener("click", function(e){
     if(e.target.dataset.comment === "commentButton"){
         const index = e.target.dataset.index
+        const id = e.target.dataset.id
 
          document.getElementById("comments-list").style.display="block"
-         renderComments(index)
+         renderComments(index,id)
          
     }
 })
@@ -110,9 +113,25 @@ document.addEventListener("submit", function(e){
         e.preventDefault()
         const index = e.target.getAttribute("data-index")
         const comment = e.target.querySelector("input").value
+        const id = e.target.getAttribute("data-id")
 
         jobs[index].comments.push(comment);
-        renderComments(index)
+    
+    
+    //Post new Comment to database
+    async function sendComment() {
+        await fetch(`http://localhost:5000/comments/${id}`, {
+            method:"PATCH",
+            headers:{"Content-type":"application/json"},
+            body:JSON.stringify({comment})
+        })
+    }
+
+
+    sendComment()
+    renderComments(index,id)
+    fetchJobs()
+
     }
 })
 
