@@ -28,8 +28,25 @@ app.get("/jobs", async(req, res)=>{
     
 })
 
+// Add new jobs in the database 
 app.post("/jobs", async (req,res)=>{
     const newJob = new Job(req.body)
     await newJob.save()
     return res.status(200).json({message:"New Job has been added",newJob})
+})
+
+//add comments to database
+app.patch("/comments/:id", async (req, res)=>{
+    const id = (req.params.id)
+    const job = await Job.findById(id)
+    const newComment = (req.body.comment)
+
+    await job.comments.unshift(newComment)
+
+    try {
+        await job.save()
+        return res.status(200).json({message:"New Comment added", comment:newComment})
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
 })

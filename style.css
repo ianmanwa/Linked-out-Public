@@ -114,4 +114,22 @@ body {
     justify-content: center;
     padding: 1rem;
     gap: 10px;
+    
+}
+.comm-p {
+    display: flex;
+    border: 2px solid;
+    border-radius: 1rem;
+    padding: 0.7rem;
+    width: 600px;
+}
+
+@media (orientation: portrait){
+
+    .jobs-div {
+    width: 400px;
+    transition: all smooth;
+
+}
+
 }

@@ -64,7 +64,7 @@ function renderJobs(){
         <div class="jobs-div">
         <h2>Job Title: ${job.title}</h2>
         <p>Company: ${job.company}</p>
-        <a href="${job.url}" target="_blank">  </a>
+        <a href="${job.url}" target="_blank"> View original job </a>
         <p>Tag: ${job.tag}</h2>
         <p>Comment: ${job.rating}</p>
 
@@ -81,7 +81,7 @@ function renderComments(index){
     commentList.innerHTML = `
 
     <div class="comm-div">
-    ${jobs[index].comments.map(c => `<p> ${c} </p>`).join("")}
+    ${jobs[index].comments.map(c => `<p class="comm-p"> ${c} </p>`).join("")}
 
     <form class="comment-form" data-index="${index}">
     <input type="text" placeholder="comment..." required>
