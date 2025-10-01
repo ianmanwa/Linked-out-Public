@@ -1,7 +1,7 @@
 let jobs = [];
 
 async function fetchJobs() {
-    const res = await fetch("http://localhost:5000/jobs");
+    const res = await fetch("https://job-farm.onrender.com/jobs");
     const data = await res.json()
     jobs = data;
 
