@@ -17,6 +17,10 @@ app.listen(PORT, (req,res)=>{
 
  // Database calls 
 
+ app.get('/', (req, res) => {
+  res.send('API is running. Try /jobs');
+});
+
  //Get jobs from database
 app.get("/jobs", async(req, res)=>{
     const job = await Job.find()
