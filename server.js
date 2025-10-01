@@ -5,7 +5,7 @@ const connectDb = require("./dbConnecton");
 const Job = require("./schemas/jobsSchema");
 const cors = require("cors");
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5000
 
 connectDb
 app.use(express.json())
