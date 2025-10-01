@@ -62,7 +62,7 @@ function renderJobs() {
         jobList.innerHTML += 
         `
         <div id="jobs-div-${index}" class="jobs-div">
-        <h2>Job Title: ${job.title}</h2>
+        <h2>Job: ${job.title}</h2>
         <p>Company: ${job.company}</p>
         <a href="${job.url}" target="_blank"> View original job </a>
         <p>Tag: ${job.tag}</h2>
@@ -82,8 +82,6 @@ function renderJobs() {
         else if(job.tag === "scam") {
             document.getElementById(jobDiv).style.backgroundColor="lightCoral";
         }
-        
-
         
     })
 }
