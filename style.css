@@ -15,7 +15,6 @@ body {
     align-items: center;
     background-color: black;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .header h1 {
@@ -23,11 +22,15 @@ body {
 }
 
 .navlist {
-    justify-content: space-between;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .navlist a {
-    padding-right: 2rem;
+    padding-right: 1rem;
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -35,12 +38,10 @@ body {
 }
 
 .navlist button {
-    padding: 0.8rem;
-    margin-right: 1rem;
+    padding: 0.5rem 1rem;
     font-weight: bold;
     font-size: 1rem;
-    border-radius: 0.8rem;
-
+    border-radius: 0.5rem;
 }
 
 .form-div {
@@ -55,18 +56,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    font-size: 50px;
     justify-content: center;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 10px 10px;
-    width: 300px;
-    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    max-width: 400px;
 }
 
 .form-class button {
     padding: 0.8rem;
-    margin-right: 1rem;
     font-weight: bold;
     font-size: 1rem;
     border-radius: 0.8rem;
@@ -89,24 +88,27 @@ body {
     justify-content: center;
     gap: 20px;
     padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .jobs-div {
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: flex-start;
     padding: 1rem;
     background-color: rgba(2, 103, 219, 0.377);
     border-radius: 1rem;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    width: 600px;
-    
+    width: 100%;
+    max-width: 600px;
+    word-wrap: break-word;
 }
 
 .jobs-div h5 {
     padding-top: 1rem;
+    cursor: pointer;
 }
-
 
 .comm-div {
     display: flex;
@@ -115,28 +117,15 @@ body {
     justify-content: center;
     padding: 1rem;
     gap: 10px;
-    
 }
+
 .comm-p {
     display: flex;
     border: 2px solid;
     border-radius: 1rem;
     padding: 0.7rem;
-    width: 600px;
-}
-
-@media (orientation: portrait){
-
-    .jobs-div {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    padding: 1rem;
-    background-color: rgba(2, 103, 219, 0.377);
-    border-radius: 1rem;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    width: 400px;
-}
-
+    width: 100%;
+    max-width: 600px;
+    word-wrap: break-word;
 }
 
