@@ -11,7 +11,7 @@ async function fetchJobs() {
 fetchJobs()
 
 // Listen to Jobs form and add new job to array
-document.getElementById("job-form").addEventListener("submit", function(e){
+document.getElementById("job-form").addEventListener("submit", function (e) {
     e.preventDefault()
 
     const title = document.getElementById("job-title").value
@@ -20,9 +20,9 @@ document.getElementById("job-form").addEventListener("submit", function(e){
     const tag = document.getElementById("job-tag").value
     const rating = document.getElementById("job-rating").value
 
-    const newJob = {title, company, url, tag, rating, comments:[]}
-    
-    
+    const newJob = { title, company, url, tag, rating, comments: [] }
+    jobs.unshift(newJob)
+
     renderJobs();
     e.target.reset();
 
@@ -31,9 +31,9 @@ document.getElementById("job-form").addEventListener("submit", function(e){
     //Send new Job to backend
     async function sendJob() {
         await fetch("http://localhost:5000/jobs", {
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(newJob)
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newJob)
         })
     }
 
@@ -42,26 +42,26 @@ document.getElementById("job-form").addEventListener("submit", function(e){
 })
 
 //open job form
-document.getElementById("post-button").addEventListener("click",function(e){
+document.getElementById("post-button").addEventListener("click", function (e) {
     document.getElementById("form-div").style.display = "flex"
 })
 
 
 //Close job form
-document.getElementById("close-form").addEventListener("click",function(e){
+document.getElementById("close-form").addEventListener("click", function (e) {
     document.getElementById("form-div").style.display = "none"
 })
 
 //Renders jobs to the screen
-function renderJobs(){
+function renderJobs() {
     const jobList = document.getElementById("jobs-list");
     jobList.innerHTML = "";
 
-    jobs.forEach((job,index) => {
-        jobList.innerHTML +=`
+    jobs.forEach((job, index) => {
         
-        
-        <div class="jobs-div">
+        jobList.innerHTML += 
+        `
+        <div id="jobs-div-${index}" class="jobs-div">
         <h2>Job Title: ${job.title}</h2>
         <p>Company: ${job.company}</p>
         <a href="${job.url}" target="_blank"> View original job </a>
@@ -70,12 +70,25 @@ function renderJobs(){
 
         <h5 data-comment="commentButton" data-index ="${index}" data-id="${job._id}"> Comments </h5>
         </div>
-        
         `
+        
+        // Change job color based on tag
+        const jobDiv = `jobs-div-${index}`
+        if (job.tag === "good") {
+            document.getElementById(jobDiv).style.backgroundColor="lightgreen";
+        } else if(job.tag === "ghost") {
+            document.getElementById(jobDiv).style.backgroundColor ="rgba(211, 211, 0, 0.72)";
+        }
+        else if(job.tag === "scam") {
+            document.getElementById(jobDiv).style.backgroundColor="lightCoral";
+        }
+        
+
+        
     })
 }
 
-function renderComments(index,id){
+function renderComments(index, id) {
     const commentList = document.getElementById("comments-list");
 
     commentList.innerHTML = `
@@ -96,49 +109,52 @@ function renderComments(index,id){
 }
 
 // When comments is clicked 
-document.addEventListener("click", function(e){
-    if(e.target.dataset.comment === "commentButton"){
+document.addEventListener("click", function (e) {
+    if (e.target.dataset.comment === "commentButton") {
         const index = e.target.dataset.index
         const id = e.target.dataset.id
 
-         document.getElementById("comments-list").style.display="block"
-         renderComments(index,id)
-         
+        document.getElementById("comments-list").style.display = "block"
+        renderComments(index, id)
+
     }
 })
 
 //When comment form is submitted
-document.addEventListener("submit", function(e){
-    if(e.target.classList.contains("comment-form")){
+document.addEventListener("submit", function (e) {
+    if (e.target.classList.contains("comment-form")) {
         e.preventDefault()
         const index = e.target.getAttribute("data-index")
         const comment = e.target.querySelector("input").value
         const id = e.target.getAttribute("data-id")
 
         jobs[index].comments.push(comment);
-    
-    
-    //Post new Comment to database
-    async function sendComment() {
-        await fetch(`http://localhost:5000/comments/${id}`, {
-            method:"PATCH",
-            headers:{"Content-type":"application/json"},
-            body:JSON.stringify({comment})
-        })
-    }
 
 
-    sendComment()
-    renderComments(index,id)
-    fetchJobs()
+        //Post new Comment to database
+        async function sendComment() {
+            await fetch(`http://localhost:5000/comments/${id}`, {
+                method: "PATCH",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({ comment })
+            })
+        }
+
+
+        sendComment()
+        renderComments(index, id)
+        fetchJobs()
 
     }
 })
 
 // Close comment form
-document.addEventListener("click", function(e){
-    if(e.target.dataset.close === "closeComments"){
-        document.getElementById("comments-list").style.display="none"
+document.addEventListener("click", function (e) {
+    if (e.target.dataset.close === "closeComments") {
+        document.getElementById("comments-list").style.display = "none"
     }
 })
+
+
+
 
