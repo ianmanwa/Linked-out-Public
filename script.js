@@ -87,23 +87,43 @@ function renderJobs() {
 }
 
 function renderComments(index, id) {
-    const commentList = document.getElementById("comments-list");
+    const jobList = document.getElementById("jobs-list");
+    jobList.innerHTML = "";
 
-    commentList.innerHTML = `
-
-    <div class="comm-div">
-    ${jobs[index].comments.map(c => `<p class="comm-p"> ${c} </p>`).join("")}
-
+    job = jobs[index]
+        jobList.innerHTML =
+    `
+    <div id="jobs-div-${index}" class="jobs-div">
+        <h2>Job: ${job.title}</h2>
+        <p>Company: ${job.company}</p>
+        <a href="${job.url}" target="_blank"> View original job </a>
+        <p>Tag: ${job.tag}</h2>
+        <p>Comment: ${job.rating}</p>
+    </div>
+    
+    <div>
     <form class="comment-form" data-index="${index}" data-id="${id}">
     <input type="text" placeholder="comment..." required>
     <button type="submit"> Comment <button>
     </form>
-
-    <span data-close="closeComments" > ❌ </span>
     </div>
+    
+    ${jobs[index].comments.map(c => `<p class="comm-p"> ${c} </p>`).join("")}
+
     `
 
+    // Change job color based on tag
+        const jobDiv = `jobs-div-${index}`
+        if (job.tag === "good") {
+            document.getElementById(jobDiv).style.backgroundColor="lightgreen";
+        } else if(job.tag === "ghost") {
+            document.getElementById(jobDiv).style.backgroundColor ="rgba(211, 211, 0, 0.72)";
+        }
+        else if(job.tag === "scam") {
+            document.getElementById(jobDiv).style.backgroundColor="lightCoral";
+        }
 
+    
 }
 
 // When comments is clicked 
@@ -126,7 +146,7 @@ document.addEventListener("submit", function (e) {
         const comment = e.target.querySelector("input").value
         const id = e.target.getAttribute("data-id")
 
-        jobs[index].comments.push(comment);
+        jobs[index].comments.unshift(comment);
 
 
         //Post new Comment to database
