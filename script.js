@@ -30,7 +30,7 @@ document.getElementById("job-form").addEventListener("submit", function (e) {
 
     //Send new Job to backend
     async function sendJob() {
-        await fetch("http://localhost:5000/jobs", {
+        await fetch("https://job-farm.onrender.com/jobs", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newJob)
@@ -151,7 +151,7 @@ document.addEventListener("submit", function (e) {
 
         //Post new Comment to database
         async function sendComment() {
-            await fetch(`http://localhost:5000/comments/${id}`, {
+            await fetch(`https://job-farm.onrender.com/comments/${id}`, {
                 method: "PATCH",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({ comment })
